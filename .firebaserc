@@ -1,0 +1,18 @@
+{
+  "targets": {
+    "fir-demo-project": {
+      "hosting": {
+        "frn-notes-control": [
+          "fir-demo-project"
+        ]
+      }
+    },
+    "sistema-ubala": {
+      "hosting": {
+        "frn-notes-control": [
+          "sistema-ubala"
+        ]
+      }
+    }
+  }
+}

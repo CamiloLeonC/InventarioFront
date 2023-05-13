@@ -1,0 +1,27 @@
+<div class="container mt-5" style="opacity: .9; width: 450px;">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Bienvenido</span>
+            <div class="table-responsive">
+
+            <form [formGroup]="loginForm" style="margin-top: 10px;" (ngSubmit)="onSubmit(loginForm.value)">
+                    <div class="mb-3">
+                    <!-- <label class="form-label">Correo</label> -->
+                    <input type="email" class="form-control mt-3" formControlName="username" placeholder="Correo" id="Email" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <!-- <label class="form-label">Contraseña</label> -->
+                    <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" id="Password">
+                    <div id="emailHelp" class="form-text">Por seguridad no comparta sus datos con nadie.</div>
+                </div>
+                <!-- <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                </div> -->
+                <button type="text" class="btn btn-primary" >Submit</button>
+
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

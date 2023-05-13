@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="container mt-4" style="opacity: .9;">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Profesor</span>
+            <div class="table-responsive">
+
+            <!-- <h5 style="margin-top:  30px;" *ngIf="profesores.length == 0">No hay registros para mostrar</h5> -->
+            <table class="table table-striped table-hover mt-4">
+                <thead>
+                    <tr>
+                        <!-- <th scope="col">IdProfesor</th> -->
+                        <th scope="col">Nombre Completo</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Documento</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let profesor of profesores">
+                        <td>{{profesor.nombreCompleto}}</td>
+                        <td>{{profesor.correo}}</td>
+                        <td>{{profesor.documento}}</td>
+                        <td><i class="fas fa-pen fa-lg text-info mr-2" [routerLink]="['/form-update-profesor/',profesor.id]"></i></td>
+                        <td><i (click)="eliminarProfesor(profesor.id)" class="fas fa-trash-alt fa-lg text-danger"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px;" routerLink="../form-profesor">Agregar</button>
+
+        </div>
+    </div>
+</div>

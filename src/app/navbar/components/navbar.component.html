@@ -1,0 +1,51 @@
+<!-- <nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">COLEGIO DEPARTAMENTAL UBALÁ</span>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="navBar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">COLEGIO UBALÁ</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">              
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="alumno">Alumnos</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="usuario" *ngIf="_admin">Usuarios</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="profesor" *ngIf="!_admin||!_docente||!_alumno">Profesor</a>
+            </li> -->
+            <li class="nav-item">
+                <a class="nav-link" href="grupo" *ngIf="_docente || _admin">Grupo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="materia" *ngIf="_docente || _admin">Materia</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="materia-profesor" *ngIf="_docente || _admin">Materia por profesor</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="nota" >Notas</a>
+            </li>
+           
+            <li class="nav-item">
+                <a class="nav-link" (click)="logout()" href="login">Cerrar Sesion</a>
+            </li>
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="control-asistencia">Control Asitencia</a>
+            </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+
+<!-- <label class="logo">COLEGIO DEPARTAMENTAL UBALÁ</label> -->
+                                

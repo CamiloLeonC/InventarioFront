@@ -1,0 +1,33 @@
+<app-navbar></app-navbar>
+<div class="container mt-4" style="opacity: .9;">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Grupo</span>
+            <div class="table-responsive"> 
+                <table class="table table-striped table-hover mt-4" id="datatable">
+                    <thead>
+                        <tr>
+                            <th scope="col">Curso</th>                       
+                            <th scope="col">Grado</th>                       
+                            <!-- <th scope="col"></th>                        -->
+                            <th scope="col" *ngIf="_admin"></th>                       
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let grupo of grupos">
+                            <td>{{grupo.curso}}</td>  
+                            <td>{{grupo.grado}}</td>  
+                            <!-- <td><i class="fas fa-pen fa-lg text-info mr-2"[routerLink]="['/form-update-curso/',grupo.id]"></i></td> -->
+                            <td *ngIf="_admin"><i (click)="eliminarGrupo(grupo.id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i></td>
+                        </tr>                   
+                    </tbody>
+                </table>
+             
+            </div>
+
+            <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px;" routerLink="../form-grupo" *ngIf="_admin">Agregar</button>
+            
+
+        </div>
+    </div>
+</div>

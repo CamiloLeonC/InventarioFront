@@ -1,0 +1,76 @@
+.card {
+    min-width: 35vw !important;
+    border: none !important;
+}
+
+.content {
+    padding: 7% 7%;
+    text-align: center!important;
+    position: relative;
+    -webkit-box-flex: 1;
+    flex: 1 1 auto;
+}
+
+.close {
+    position: relative;
+    z-index: 1040;
+    text-align: end;
+}
+
+.icono {
+    font-size: 4em;
+    line-height: 1.5;
+    margin-left: -32px;
+}
+
+.titulo {
+    font-family: Montserrat,sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.5!important;
+    margin-bottom: .5rem;
+}
+
+.mensaje {
+    font-family: "Work Sans",sans-serif;
+    font-size: 1rem;
+    color: #4b4b4b;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.actions {
+    margin-bottom: 1.1rem !important;
+}
+
+mat-card-actions > .boton {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400 !important;
+    background-color: #FFFF !important;
+    margin: 0px;
+    font-size: 0.93rem;
+    color: #3051A0 !important;
+    padding: 0.5em 2em;
+    white-space: pre-line;
+    cursor: pointer;
+    position: relative !important;
+    line-height: .42;
+    border-radius: 5px !important;
+    height: 35px !important;
+    margin: 2px !important;
+    border: 2px solid #3051A0 !important;
+    box-sizing: border-box !important;
+
+    &:hover {
+      color: #3366cc;
+      background-color: #f2f2f2 !important;
+      text-decoration: none;
+    }
+
+    &:disabled {
+      background-color: #FFFFFF !important;
+      border-color: #FFFFFF !important;
+      cursor: default !important;
+    }
+}

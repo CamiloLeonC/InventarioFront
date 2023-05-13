@@ -1,0 +1,91 @@
+<app-navbar></app-navbar>
+<div class="container pt-4" style="opacity: 0.9;">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ tituloAlumno }}
+                        <div *ngIf="loading" class="spinner-border float-end " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h3>
+                    <span *ngIf="submitted && createAlumno.invalid" class="badge bg-danger">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
+                    <form class="mt-4" [formGroup]= "createAlumno" (ngSubmit)="guardarAlumno()">
+                        
+                        <!-- <label for="nombreCompleto" class="form-label" aling="rigth">Nombre Completo:</label> -->
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="nombreCompleto" placeholder="Nombre Completo">
+                        <span
+                        *ngIf="createAlumno.controls.nombreCompleto.invalid && createAlumno.controls.nombreCompleto.touched">
+                        Nombre Invalido</span>
+
+                        <select formControlName="idGrupo" class="form-control form-control-lg mt-4" >
+                            <option disabled selected>Selecciona un grupo</option>
+                            <option *ngFor="let _grupo of _grupos" [value]="_grupo.id">
+                                {{_grupo.curso}} {{_grupo.grado}}</option>
+                        </select>
+                        <span
+                        *ngIf="createAlumno.controls.idGrupo.invalid && createAlumno.controls.idGrupo.touched">
+                        Grupo Invalido</span>
+
+                        <!-- <input type="number" class="form-control form-control-lg mt-4" formControlName="idGrupo" placeholder="Grupo">
+                        <span
+                        *ngIf="createAlumno.controls.idGrupo.invalid && createAlumno.controls.idGrupo.touched">
+                        Grupo Invalido</span> -->
+                        <div class="row">
+                            <div class="col">
+                                    <select class="form-select mt-4" formControlName="jornada" >
+                                        <option disabled selected>Jornada</option>
+                                        <option value=1>Mañana</option>
+                                    </select>
+                                    <span
+                                    *ngIf="createAlumno.controls.jornada.invalid && createAlumno.controls.jornada.touched">
+                                    Jornada Invalida</span>
+                            </div>
+                            <div class="col">
+                                <select class="form-select mt-4" formControlName="tipoSangre">
+                                    <option disabled selected>Tipo de sangre</option>
+                                    <option value=1>O +</option>
+                                    <option value=2>O -</option>
+                                    <option value=3>A +</option>
+                                    <option value=4>A -</option>
+                                    <option value=5>B +</option>
+                                    <option value=6>B -</option>
+                                    <option value=7>AB +</option>
+                                    <option value=8>AB -</option>
+                                </select>
+                                <span
+                                *ngIf="createAlumno.controls.tipoSangre.invalid && createAlumno.controls.tipoSangre.touched">
+                                Tipo de Sangre Invalido</span>
+                            </div>                         
+                        </div> 
+                        <div class="row">
+                            <div class="col">
+                                <input type="text" class="form-control form-control-lg mt-4" formControlName="documento" placeholder="Documento">
+                                <span
+                                *ngIf="createAlumno.controls.documento.invalid && createAlumno.controls.documento.touched">
+                                Documento Invalido</span>
+                            </div>
+                        </div>
+                        <input type="email" class="form-control form-control-lg mt-4" formControlName="correo" placeholder="Correo">
+                        <span
+                        *ngIf="createAlumno.controls.correo.invalid && createAlumno.controls.correo.touched">
+                        Correo Invalido</span>
+                        <input type="text" class="form-control form-control-lg mt-4" formControlName="nombreAcudiente" placeholder="Nombre acudiente">
+                        <span
+                        *ngIf="createAlumno.controls.nombreAcudiente.invalid && createAlumno.controls.nombreAcudiente.touched">
+                        Nombre Acudiente Invalido</span>
+                        <input type="text" class="form-control form-control-lg mt-4" formControlName="numeroAcudiente" placeholder="Numero de contacto acudiente">
+                        <span
+                        *ngIf="createAlumno.controls.numeroAcudiente.invalid && createAlumno.controls.numeroAcudiente.touched">
+                        Numero Acudiente Invalido</span>
+
+                        <div class="mt-3">
+                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/alumno">Volver</button>
+                            <button class="btn btn-dark btn-lg" [disabled]="!createAlumno.valid">Agregar</button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
