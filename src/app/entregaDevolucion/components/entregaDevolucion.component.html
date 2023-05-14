@@ -10,11 +10,10 @@
                     <thead>
                         <tr>                            
                             <th scope="col">Código</th>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Documento</th>
-                            <th scope="col">Numero Acudiente</th>
-                            <th scope="col">Rol</th>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Equipo</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Fecha fin</th>
                             <th scope="col" *ngIf="_admin"></th>
                             <th scope="col" *ngIf="_admin"></th>
                         </tr>
@@ -22,11 +21,10 @@
                     <tbody>
                         <tr *ngFor="let entregadevolucion of entregadevolucions">
                             <td>{{ entregadevolucion.Codigo }}</td>
-                            <td>{{ entregadevolucion.NombreCompleto }}</td>
-                            <td>{{ entregadevolucion.Email }}</td>
-                            <td>{{ entregadevolucion.Documento }}</td>
-                            <td>{{ entregadevolucion.Celular }}</td>
-                            <td>{{ entregadevolucion.Rol }}</td>
+                            <td>{{ entregadevolucion.Usuario.NombreCompleto }}</td>
+                            <td>{{ entregadevolucion.Equipo.MarcaEquipo}} - {{ entregadevolucion.Equipo.TipoEquipo}}</td>
+                            <td>{{ entregadevolucion.FechaIncio }}</td>
+                            <td>{{ entregadevolucion.FechaFin }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
                                     [routerLink]="['/form-update-entregadevolucion/', entregadevolucion.Id]" *ngIf="_admin"></i>
@@ -38,7 +36,7 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px" routerLink="../form-entregadevolucion" *ngIf="_admin">
+            <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px" routerLink="../form-entregaDevolucion" *ngIf="_admin">
                 Agregar
             </button>
         </div>

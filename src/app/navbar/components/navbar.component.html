@@ -6,7 +6,7 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark" id="navBar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">ADMINISTRACIÓN DE ENTRAGA Y DEVOLUCION DE EQUIPOS</a>
+        <a class="navbar-brand" href="#">Control y registro</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,6 +23,9 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="entregaDevolucion" *ngIf="_docente || _admin">Entrega o Devolución</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="seguimiento" *ngIf="_docente || _admin">Seguimiento</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" (click)="logout()" href="login">Cerrar Sesion</a>

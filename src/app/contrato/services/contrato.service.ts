@@ -25,21 +25,8 @@ export class ContratoService {
     );
   }
 
-  getListEquipo(): Observable<any> {
-    const Urls = `${this.AppUrl}${this.ApiUrl}`;
-    const params: any={};
-
-    params["$filter"]="Roles/any(x: x/Role/Name eq 'Empleado')";
-    params["$select"]="Id,NombreCompleto";
-
-    return this.http.get<any>(Urls, {params}).pipe(
-      tap(row => this.log('fetched ModuleDTO')),
-      catchError((error) => this.handleError('getModuleDTOList', error))
-    );
-  }
-
-  getById(id: number): Observable<any> {
-    const Urls = `${this.AppUrl}${this.ApiUrl}/${id}`;
+  getById(Id: number): Observable<any> {
+    const Urls = `${this.AppUrl}${this.ApiUrl}/${Id}`;
     return this.http.get<any>(Urls).pipe(
       tap(row => this.log('fetched Contrato')),
       catchError((error) => this.handleError('getContrato', error))

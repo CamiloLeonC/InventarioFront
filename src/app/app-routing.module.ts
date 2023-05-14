@@ -64,17 +64,17 @@ const routes: Routes = [
 
   //EntregaDevolucion
   {
-    path:'entregadevolucion', component:EntregaDevolucionComponent, canActivate: [UserGuardGuard]
+    path:'entregaDevolucion', component:EntregaDevolucionComponent, canActivate: [UserGuardGuard]
   },
   {
-    path:'form-entregadevolucion', component:FormEntregaDevolucionComponent, canActivate: [UserGuardGuard]
+    path:'form-entregaDevolucion', component:FormEntregaDevolucionComponent, canActivate: [UserGuardGuard]
   },
   {
-    path:'form-update-entregadevolucion/:id', component:FormEntregaDevolucionComponent, canActivate: [UserGuardGuard]
+    path:'form-update-entregaDevolucion/:id', component:FormEntregaDevolucionComponent, canActivate: [UserGuardGuard]
   },
   
   {
-    path:'**', redirectTo: 'login', pathMatch:'full'
+    path:'**', redirectTo: 'equipo', pathMatch:'full'
   }
   
 ];

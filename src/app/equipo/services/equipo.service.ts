@@ -23,8 +23,8 @@ export class EquipoService {
   }
   
   
-  getById(id: string): Observable<any> {
-    const Urls = `${this.AppUrl}${this.ApiUrl}/${id}`;
+  getById(Id: number): Observable<any> {
+    const Urls = `${this.AppUrl}${this.ApiUrl}/${Id}`;
     return this.http.get<any>(Urls).pipe(
       tap(row => this.log('fetched ModuleDTO')),
       catchError((error) => this.handleError('getModuleDTOList', error))
@@ -44,7 +44,7 @@ export class EquipoService {
     return this.http.post(this.AppUrl + this.ApiUrl, equipo);
   }
 
-  updateEquipo(id: string, equipo: any): Observable<any> {
+  updateEquipo(id: number, equipo: any): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
     return this.http.put(sUrl, equipo);
   }

@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { EquipoService } from 'src/app/equipo/services/equipo.service';
-import { GrupoService } from 'src/app/curso/services/grupo.service';
 
 @Component({
   selector: 'app-form-equipo',
@@ -11,7 +10,7 @@ import { GrupoService } from 'src/app/curso/services/grupo.service';
   // styleUrls: ['./form-equipo.component.scss'],
 })
 export class FormEquipoComponent implements OnInit {
-  
+
   listEquipos: any[] = [];
   _grupos: any = [];
   _roles: any = [];
@@ -19,51 +18,52 @@ export class FormEquipoComponent implements OnInit {
   submitted = false;
   loading = false;
   nombre: string | null;
-  id: string = "";
+  id: number | undefined;
+  _equipos: any = [];
+  _usuarios: any = [];
   tituloEquipo = 'Agregar Equipo';
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private _grupoService: GrupoService,
     private _equipoService: EquipoService,
     private aRoute: ActivatedRoute,
   ) {
     this.createEquipo = this.fb.group({
-      codigo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      tipoEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      numeroSerie: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      placa: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      marcaEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      modeloEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      ramEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      dDEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      sOEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      tipoEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      numeroSerie: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      placa: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      marcaEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      modeloEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      ramEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      dDEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      sOEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
     });
-    this.nombre =this.aRoute.snapshot.paramMap.get('id');
-    if(this.nombre){
-      this.id=this.nombre;
+    this.nombre = this.aRoute.snapshot.paramMap.get('id');
+    if (this.nombre) {
+      this.id = parseInt(this.nombre);
       _equipoService.getById(this.id).subscribe(data => {
-        if(!data.error){
+        if (!data.error) {
           this.editarEquipo(data);
         }
       })
     }
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
     this.createEquipo = this.fb.group({
-      idEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],      
-      codigo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      tipoEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      numeroSerie: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      placa: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      marcaEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      modeloEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      ramEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      dDEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      sOEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-    });      
+      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      tipoEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      numeroSerie: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      placa: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      marcaEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      modeloEquipo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      ramEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      dDEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      sOEquipo: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+    });
+    
   }
 
   guardarEquipo() {
@@ -79,35 +79,35 @@ export class FormEquipoComponent implements OnInit {
       SOEquipo: this.createEquipo.get('sOEquipo')?.value
     }
 
-    
-    if(this.id == "") {
+
+    if (this.id == undefined) {
       // Agregamos un nuevo equipo
-        this._equipoService.saveEquipo(equipo).subscribe(data => {
-          this.toastr.success('El equipo fue registrado con exito!', 'Equipo Registrado');
-          this.createEquipo.reset();
-        }, error => {
-          this.toastr.warning(error.error,'Error')
-          console.log(error);
-        })
-    }else {
+      this._equipoService.saveEquipo(equipo).subscribe(data => {
+        this.toastr.success('El equipo fue registrado con exito!', 'Equipo Registrado');
+        this.createEquipo.reset();
+      }, error => {
+        this.toastr.warning(error.error, 'Error')
+        console.log(error);
+      })
+    } else {
       equipo.id = this.id;
       // Editamos equipo
-      this._equipoService.updateEquipo(this.id,equipo).subscribe(data => {
+      this._equipoService.updateEquipo(this.id, equipo).subscribe(data => {
         this.createEquipo.reset();
         this.tituloEquipo = 'Agregar';
-        this.id = "";
+        this.id = undefined;
         this.toastr.info('El equipo fue actualizado con exito!', 'Equipo Actualizado');
       }, error => {
-        this.toastr.warning(error.error,'Error')
+        this.toastr.warning(error.error, 'Error')
         console.log(error);
       })
 
-    }   
+    }
   }
 
   eliminarMateria(id: number) {
     this._equipoService.deleteEquipo(id).subscribe(data => {
-      this.toastr.error('el equipo fue eliminado con exito!','Equipo eliminado');
+      this.toastr.error('el equipo fue eliminado con exito!', 'Equipo eliminado');
     }, error => {
       console.log(error);
     })
@@ -120,15 +120,15 @@ export class FormEquipoComponent implements OnInit {
 
     this.createEquipo.patchValue({
       // titular: equipo.titular,
-      nombreCompleto: equipo.nombreCompleto,
-      rol: equipo.idRol,
-      idGrupo: equipo.idGrupo,
-      jornada: equipo.jornada,
-      tipoSangre: equipo.tipoSangre,
-      email: equipo.email,
-      documento: equipo.documento,
-      nombreAcudiente: equipo.nombreAcudiente,
-      numeroAcudiente: equipo.numeroAcudiente,
+      codigo: equipo.codigo,
+      tipoEquipo: equipo.tipoEquipo,
+      numeroSerie: equipo.numeroSerie,
+      placa: equipo.placa,
+      marcaEquipo: equipo.marcaEquipo,
+      modeloEquipo: equipo.modeloEquipo,
+      ramEquipo: equipo.ramEquipo,
+      dDEquipo: equipo.ddEquipo,
+      sOEquipo: equipo.soEquipo,
     })
   }
 

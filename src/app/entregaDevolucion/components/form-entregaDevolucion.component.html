@@ -13,81 +13,40 @@
                     <form class="mt-4" [formGroup]= "createEntregaDevolucion" (ngSubmit)="guardarEntregaDevolucion()">
                         
                         <!-- <label for="nombreCompleto" class="form-label" aling="rigth">Nombre Completo:</label> -->
-                        <input type="text" class="form-control form-control-lg mb-4" formControlName="nombreCompleto" placeholder="Nombre Completo">
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="codigo"
+                            placeholder="Código">
                         <span
-                        *ngIf="createEntregaDevolucion.controls.nombreCompleto.invalid && createEntregaDevolucion.controls.nombreCompleto.touched">
-                        Nombre Invalido</span>
-                        <select formControlName="rol" class="form-control form-control-lg mt-4" >
-                            <option disabled selected>Selecciona un rol</option>
-                            <option *ngFor="let _rol of _roles" [value]="_rol.id">
-                                {{_rol.name}}</option>
-                        </select>
+                            *ngIf="createEntregaDevolucion.controls.codigo.invalid && createEntregaDevolucion.controls.codigo.touched">
+                            Código Invalido</span>
 
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" class="form-control form-control-lg mt-4" formControlName="documento" placeholder="Documento">
-                                <span
-                                *ngIf="createEntregaDevolucion.controls.documento.invalid && createEntregaDevolucion.controls.documento.touched">
-                                Documento Invalido</span>
-                            </div>
-                        </div>
-                        <input type="email" class="form-control form-control-lg mt-4" formControlName="email" placeholder="Email">
-                        <span
-                        *ngIf="createEntregaDevolucion.controls.email.invalid && createEntregaDevolucion.controls.email.touched">
-                        Email Invalido</span>
-
-                        <!-- <select formControlName="idGrupo" class="form-control form-control-lg mt-4" >
-                            <option disabled selected>Selecciona un grupo</option>
-                            <option *ngFor="let _grupo of _grupos" [value]="_grupo.id">
-                                {{_grupo.curso}} {{_grupo.grado}}</option>
+                        <select formControlName="idEquipo" class="form-control form-control-lg mt-4" >
+                            <option disabled selected>Seleccione un equipo</option>
+                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.idEquipo">{{_equipo.MarcaEquipo}} - {{ _equipo.TipoEquipo}}</option>
                         </select>
                         <span
-                        *ngIf="createEntregaDevolucion.controls.idGrupo.invalid && createEntregaDevolucion.controls.idGrupo.touched">
-                        Grupo Invalido</span> -->
+                        *ngIf="createEntregaDevolucion.controls.idEquipo.invalid && createEntregaDevolucion.controls.idEquipo.touched">
+                        Equipo Invalido</span>
 
-                        <!-- <input type="number" class="form-control form-control-lg mt-4" formControlName="idGrupo" placeholder="Grupo">
+                        <select formControlName="idUsuario" class="form-control form-control-lg mt-4" >
+                            <option disabled selected>Seleccione un usuario</option>
+                            <option *ngFor="let _usuario of _usuarios" [value]="_usuario.idUsuario">{{_usuario.NombreCompleto}}</option>
+                        </select>
                         <span
-                        *ngIf="createEntregaDevolucion.controls.idGrupo.invalid && createEntregaDevolucion.controls.idGrupo.touched">
-                        Grupo Invalido</span> -->
-                        <!-- <div class="row">
-                            <div class="col">
-                                    <select class="form-select mt-4" formControlName="jornada" >
-                                        <option disabled selected>Jornada</option>
-                                        <option value='Unica'>Unica</option>
-                                    </select>
-                                    <span
-                                    *ngIf="createEntregaDevolucion.controls.jornada.invalid && createEntregaDevolucion.controls.jornada.touched">
-                                    Jornada Invalida</span>
-                            </div>
-                            <div class="col">
-                                <select class="form-select mt-4" formControlName="tipoSangre">
-                                    <option disabled selected>Tipo de sangre</option>
-                                    <option value="O_POSITIVO">O +</option>
-                                    <option value="O_NEGATIVO">O -</option>
-                                    <option value="A_POSITIVO">A +</option>
-                                    <option value="A_NEGATIVA">A -</option>
-                                    <option value="B_POSITIVO">B +</option>
-                                    <option value="B_NEGATIVO">B -</option>
-                                    <option value="AB_POSITIVO">AB +</option>
-                                    <option value="AB_NEGATIVO">AB -</option>
-                                </select>
-                                <span
-                                *ngIf="createEntregaDevolucion.controls.tipoSangre.invalid && createEntregaDevolucion.controls.tipoSangre.touched">
-                                Tipo de Sangre Invalido</span>
-                            </div>                         
-                        </div>  -->
+                        *ngIf="createEntregaDevolucion.controls.idUsuario.invalid && createEntregaDevolucion.controls.idUsuario.touched">
+                        Equipo Invalido</span>
+
+                        <!-- <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Fecha de Inicio">
+                        <span
+                        *ngIf="createEntregaDevolucion.controls.fechaInicio.invalid && createEntregaDevolucion.controls.fechaInicio.touched">
+                        Fecha de Inicio Invalido</span>
                         
-                        <!-- <input type="text" class="form-control form-control-lg mt-4" formControlName="nombreAcudiente" placeholder="Nombre acudiente">
+                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Fecha fin">
                         <span
-                        *ngIf="createEntregaDevolucion.controls.nombreAcudiente.invalid && createEntregaDevolucion.controls.nombreAcudiente.touched">
-                        Nombre Acudiente Invalido</span> -->
-                        <input type="text" class="form-control form-control-lg mt-4" formControlName="celular" placeholder="Numero de contacto acudiente">
-                        <span
-                        *ngIf="createEntregaDevolucion.controls.numeroAcudiente.invalid && createEntregaDevolucion.controls.numeroAcudiente.touched">
-                        Numero Acudiente Invalido</span>
-                       
+                        *ngIf="createEntregaDevolucion.controls.fechaFin.invalid && createEntregaDevolucion.controls.fechaFin.touched">
+                        Fecha fin Invalido</span> -->
+
                         <div class="mt-3">
-                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/entregadevolucion">Volver</button>
+                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/entregaDevolucion">Volver</button>
                             <button class="btn btn-dark btn-lg" [disabled]="!createEntregaDevolucion.valid">Agregar</button>
                         </div>  
                     </form>

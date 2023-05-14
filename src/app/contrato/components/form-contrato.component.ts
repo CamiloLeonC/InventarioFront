@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ContratoService } from 'src/app/contrato/services/contrato.service';
-import { GrupoService } from 'src/app/curso/services/grupo.service';
+import { EquipoService } from 'src/app/equipo/services/equipo.service';
 
 @Component({
   selector: 'app-form-contrato',
@@ -17,26 +17,27 @@ export class FormContratoComponent implements OnInit {
   submitted = false;
   loading = false;
   nombre: string | null;
-  idContrato: number | undefined;
+  id: number | undefined;
   _equipos: any = [];
   tituloContrato = 'Agregar Contrato';
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private _grupoService: GrupoService,
     private _contratoService: ContratoService,
+    private _equipoService: EquipoService,
     private aRoute: ActivatedRoute) {
     this.createContrato = this.fb.group({
-      idEquipo: ['', [Validators.required, Validators.required, Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      codigo: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      fechaIncio: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9_]+$')]],
-      fechaFin: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9_]+$')]],
+      idEquipo: ['', [Validators.required]],
+      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      fechaIncio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
+      tituloContrato: ['', [Validators.required]],
     });
-    this.nombre = this.aRoute.snapshot.paramMap.get('IdContrato');
+    this.nombre = this.aRoute.snapshot.paramMap.get('id');
     if (this.nombre) {
-      this.idContrato = parseInt(this.nombre);
-      _contratoService.getById(this.idContrato).subscribe(data => {
+      this.id = parseInt(this.nombre);
+      _contratoService.getById(this.id).subscribe(data => {
         if (!data.error) {
           this.editarContrato(data);
         }
@@ -45,7 +46,7 @@ export class FormContratoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._contratoService.getListEquipo().subscribe(data => {
+    this._equipoService.getListEquipos().subscribe(data => {
       this._equipos = data;
     });
   }
@@ -55,11 +56,11 @@ export class FormContratoComponent implements OnInit {
       idEquipo: this.createContrato.get('idEquipo')?.value,
       codigo: this.createContrato.get('codigo')?.value,
       fechaIncio: this.createContrato.get('fechaIncio')?.value,
-      fechaFin: this.createContrato.get('fechaFin')?.value
+      fechaFin: this.createContrato.get('fechaFin')?.value,
+      tituloContrato: this.createContrato.get('tituloContrato')?.value
     }
 
-
-    if (this.idContrato == undefined) {
+    if (this.id == undefined) {
       // Agregamos un nuevo contrato
       this._contratoService.saveContrato(contrato).subscribe(data => {
         this.toastr.success('El contrato fue registrado con exito!', 'Contrato Registrado');
@@ -70,12 +71,12 @@ export class FormContratoComponent implements OnInit {
       })
     } else {
 
-      contrato.idContrato = this.idContrato;
+      contrato.id = this.id;
       // Editamos contrato
-      this._contratoService.updateContrato(this.idContrato, contrato).subscribe(data => {
+      this._contratoService.updateContrato(this.id, contrato).subscribe(data => {
         this.createContrato.reset();
         this.tituloContrato = 'Agregar';
-        this.idContrato = undefined
+        this.id = undefined
         this.toastr.info('El contrato fue actualizado con exito!', 'Contrato Actualizado');
       }, error => {
         this.toastr.warning(error.error, 'Error')
@@ -96,13 +97,14 @@ export class FormContratoComponent implements OnInit {
 
   editarContrato(contrato: any) {
     this.tituloContrato = 'Editar Contrato';
-    this.idContrato = contrato.idContrato;
+    this.id = contrato.id;
 
     this.createContrato.patchValue({
       idEquipo: contrato.idEquipo,
       codigo: contrato.codigo,
       fechaIncio: contrato.fechaIncio,
-      fechaFin: contrato.fechaFin
+      fechaFin: contrato.fechaFin,
+      tituloContrato: contrato.tituloContrato
     })
   }
 

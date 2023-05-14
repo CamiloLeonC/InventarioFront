@@ -31,12 +31,6 @@ export class SeguimientoComponent implements OnInit {
     this._seguimientoService.getListSeguimientos().subscribe(data => {
       console.log(data);
       this.seguimientos = data;
-      this.seguimientos.forEach(registro => {
-        this._seguimientoService.getUserRoles(registro.Id)
-          .subscribe(roles => {
-            registro.Rol = roles.descripcion;
-          });
-      })
     }, error => {
       console.log(error)
     })

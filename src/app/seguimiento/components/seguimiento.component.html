@@ -10,11 +10,9 @@
                     <thead>
                         <tr>                            
                             <th scope="col">Código</th>
-                            <th scope="col">Nombre Completo</th>
-                            <th scope="col">Correo</th>
-                            <th scope="col">Documento</th>
-                            <th scope="col">Numero Acudiente</th>
-                            <th scope="col">Rol</th>
+                            <th scope="col">Entrega o Devolucion</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Fecha del Estado</th>
                             <th scope="col" *ngIf="_admin"></th>
                             <th scope="col" *ngIf="_admin"></th>
                         </tr>
@@ -22,11 +20,9 @@
                     <tbody>
                         <tr *ngFor="let seguimiento of seguimientos">
                             <td>{{ seguimiento.Codigo }}</td>
-                            <td>{{ seguimiento.NombreCompleto }}</td>
-                            <td>{{ seguimiento.Email }}</td>
-                            <td>{{ seguimiento.Documento }}</td>
-                            <td>{{ seguimiento.Celular }}</td>
-                            <td>{{ seguimiento.Rol }}</td>
+                            <td>{{ seguimiento.EntregaDevolucion.IdUsuario }} - {{ seguimiento.EntregaDevolucion.IdEquipos }}</td>
+                            <td>{{ seguimiento.Estado }}</td>
+                            <td>{{ seguimiento.FechaEstado }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
                                     [routerLink]="['/form-update-seguimiento/', seguimiento.Id]" *ngIf="_admin"></i>

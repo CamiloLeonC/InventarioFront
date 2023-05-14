@@ -34,7 +34,7 @@ export class FormUsuarioComponent implements OnInit {
       celular: [],
       rol: ['', [Validators.required]],
     });
-    this.nombre =this.aRoute.snapshot.paramMap.keys[0];
+    this.nombre =this.aRoute.snapshot.paramMap.get('id');
     if(this.nombre){
       this.id=this.nombre;
       _usuarioService.getById(this.id).subscribe(data => {

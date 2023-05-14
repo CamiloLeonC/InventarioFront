@@ -38,13 +38,16 @@ export class ContratoComponent implements OnInit {
 
   eliminarContrato(id: number) {
     this._contratoService.deleteContrato(id).subscribe(data => {
-      this.toastr.error('El contrato fue eliminado con exito!', 'Contrato eliminado');
-      this.obtenerContratos();
+      let error = !data?.error;
+      if (!error) {
+        this.toastr.warning(data.error, 'Error');
+        this.obtenerContratos();
+      } else {
+        this.toastr.error('El contrato fue eliminado con exito!', 'Contrato eliminado');
+        this.obtenerContratos();
+      }
     }, error => {
       console.log(error);
-      this.toastr.error('Este dato está en uso!', 'Error');
-
     })
   }
-
 }

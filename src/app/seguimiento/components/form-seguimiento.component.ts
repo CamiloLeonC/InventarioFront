@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { EntregaDevolucionService } from 'src/app/entregaDevolucion/services/entregaDevolucion.service';
 import { SeguimientoService } from 'src/app/seguimiento/services/seguimiento.service';
+import { UsuarioService } from 'src/app/usuario/services/usuario.service';
 
 @Component({
   selector: 'app-form-seguimiento',
@@ -10,97 +12,88 @@ import { SeguimientoService } from 'src/app/seguimiento/services/seguimiento.ser
   // styleUrls: ['./form-seguimiento.component.scss'],
 })
 export class FormSeguimientoComponent implements OnInit {
-  
+
   listSeguimientos: any[] = [];
-  _grupos: any = [];
-  _roles: any = [];
   createSeguimiento: FormGroup;
   submitted = false;
   loading = false;
   nombre: string | null;
-  id: string = "";
-  tituloSeguimiento = 'Agregar Seguimiento';
+  id: number | undefined;
+  _entregaDevoluciones: any = [];
+  _usuarios: any = [];
+  tituloSeguimiento = 'Agregar Entrega o Devolucion';
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private _seguimientoService: SeguimientoService,
+    private _entregaDevolucioneservice: EntregaDevolucionService,
+    private _usuarioService: UsuarioService,
     private aRoute: ActivatedRoute,
   ) {
     this.createSeguimiento = this.fb.group({
-      nombreCompleto: ['', [Validators.required, Validators.required, Validators.maxLength(200), Validators.pattern('^([A-Za-z_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåèéêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      // idGrupo: [null, Validators.required],
-      // jornada: ['', Validators.required],
-      // tipoSangre: ['', Validators.required],
-      email: ['', [Validators.required, Validators.maxLength(200), Validators.email]],
-      documento: ['', [Validators.required, Validators.pattern('^[A-Za-z0-9_]+$')]],
-      // nombreAcudiente: [],
-      celular: [],
-      rol: ['', [Validators.required]],
+      idEntregaDevolucion: ['', [Validators.required]],
+      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      estado: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåè éêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      fechaEstado: ['', [Validators.required]],
     });
-    this.nombre =this.aRoute.snapshot.paramMap.get('id');
-    if(this.nombre){
-      this.id=this.nombre;
+    this.nombre = this.aRoute.snapshot.paramMap.get('id');
+    if (this.nombre) {
+      this.id = parseInt(this.nombre);
       _seguimientoService.getById(this.id).subscribe(data => {
-        if(!data.error){
+        if (!data.error) {
           this.editarSeguimiento(data);
         }
       })
     }
   }
 
-  ngOnInit(): void {   
+  ngOnInit(): void {
 
-    this._seguimientoService.getListRoles().subscribe(data => {
-      this._roles = data;
-    });   
-    
+    this._entregaDevolucioneservice.getListEntregaDevoluciones().subscribe(data => {
+      this._entregaDevoluciones = data;
+    });
+
+    this._usuarioService.getListUsuarios().subscribe(data => {
+      this._usuarios = data;
+    });
+
   }
 
   guardarSeguimiento() {
-
-    let idRoles: string[] = [];
-    idRoles.push(this.createSeguimiento.value.rol);
     const seguimiento: any = {
-      NombreCompleto: this.createSeguimiento.get('nombreCompleto')?.value,
-      // IdGrupo: this.createSeguimiento.get('idGrupo')?.value,
-      // Jornada: this.createSeguimiento.get('jornada')?.value,
-      // TipoSangre: this.createSeguimiento.get('tipoSangre')?.value,
-      Email: this.createSeguimiento.get('email')?.value,
-      Documento: this.createSeguimiento.get('documento')?.value,
-      // NombreAcudiente: this.createSeguimiento.get('nombreAcudiente')?.value,
-      Celular: this.createSeguimiento.get('celular')?.value,
-      Roles: idRoles,
-      IdRol: ""
+      idEntregaDevolucion: this.createSeguimiento.get('idEntregaDevolucion')?.value,
+      codigo: this.createSeguimiento.get('codigo')?.value,
+      estado: this.createSeguimiento.get('estado')?.value,
+      fechaEstado: this.createSeguimiento.get('fechaEstado')?.value,
     }
 
-    
-    if(this.id == "") {
+    if (this.id == undefined) {
       // Agregamos un nuevo seguimiento
-        this._seguimientoService.saveSeguimiento(seguimiento).subscribe(data => {
-          this.toastr.success('El seguimiento fue registrado con exito!', 'Seguimiento Registrado');
-          this.createSeguimiento.reset();
-        }, error => {
-          this.toastr.warning(error.error,'Error')
-          console.log(error);
-        })
-    }else {
+      this._seguimientoService.saveSeguimiento(seguimiento).subscribe(data => {
+        this.toastr.success('El seguimiento fue registrado con exito!', 'Seguimiento Registrado');
+        this.createSeguimiento.reset();
+      }, error => {
+        this.toastr.warning(error.error, 'Error')
+        console.log(error);
+      })
+    } else {
 
       seguimiento.id = this.id;
       // Editamos seguimiento
-      this._seguimientoService.updateSeguimiento(this.id,seguimiento).subscribe(data => {
+      this._seguimientoService.updateSeguimiento(this.id, seguimiento).subscribe(data => {
         this.createSeguimiento.reset();
         this.tituloSeguimiento = 'Agregar';
-        this.id = "";
+        this.id = undefined;
         this.toastr.info('El seguimiento fue actualizado con exito!', 'Seguimiento Actualizado');
       }, error => {
-        this.toastr.warning(error.error,'Error')
+        this.toastr.warning(error.error, 'Error')
         console.log(error);
       })
 
     }
 
-   
+
   }
 
   editarSeguimiento(seguimiento: any) {
@@ -108,16 +101,10 @@ export class FormSeguimientoComponent implements OnInit {
     this.id = seguimiento.id;
 
     this.createSeguimiento.patchValue({
-      // titular: seguimiento.titular,
-      nombreCompleto: seguimiento.nombreCompleto,
-      rol: seguimiento.idRol,
-      idGrupo: seguimiento.idGrupo,
-      jornada: seguimiento.jornada,
-      tipoSangre: seguimiento.tipoSangre,
-      email: seguimiento.email,
-      documento: seguimiento.documento,
-      nombreAcudiente: seguimiento.nombreAcudiente,
-      numeroAcudiente: seguimiento.numeroAcudiente,
+      idEntregaDevolucion: seguimiento.idEntregaDevolucion,
+      codigo: seguimiento.codigo,
+      estado: seguimiento.estado,
+      fechaEstado: seguimiento.fechaEstado
     })
   }
 

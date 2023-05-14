@@ -16,31 +16,30 @@
                         <input type="text" class="form-control form-control-lg mb-4" formControlName="codigo" placeholder="Código">
                         <span
                         *ngIf="createContrato.controls.codigo.invalid && createContrato.controls.codigo.touched">
-                        Nombre Invalido</span>
+                        Código Invalido</span>
 
                         <select formControlName="idEquipo" class="form-control form-control-lg mt-4" >
                             <option disabled selected>Seleccione un equipo</option>
-                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.Id">
-                                {{_equipo.NombreCompleto}}</option>
+                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.idEquipo">>{{_equipo.MarcaEquipo}} - {{ _equipo.TipoEquipo}}</option>
                         </select>
                         <span
                         *ngIf="createContrato.controls.idEquipo.invalid && createContrato.controls.idEquipo.touched">
                         Equipo Invalido</span>
 
-                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Código">
+                        <!-- <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Fecha de Inicio">
                         <span
                         *ngIf="createContrato.controls.fechaInicio.invalid && createContrato.controls.fechaInicio.touched">
-                        Nombre Invalido</span>
+                        Fecha de Inicio Invalido</span>
                         
-                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Código">
+                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Fecha fin">
                         <span
                         *ngIf="createContrato.controls.fechaFin.invalid && createContrato.controls.fechaFin.touched">
-                        Nombre Invalido</span>
+                        Fecha fin Invalido</span> -->
 
-                        <input type="text" class="form-control form-control-lg mb-4" formControlName="terminosContrato" placeholder="Código">
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="terminosContrato" placeholder="Terminos del Contrato">
                         <span
                         *ngIf="createContrato.controls.terminosContrato.invalid && createContrato.controls.terminosContrato.touched">
-                        Nombre Invalido</span>
+                        Terminos del Contrato Invalido</span>
 
                         <div class="mt-3">
                             <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/contrato">Volver</button>

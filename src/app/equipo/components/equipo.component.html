@@ -20,17 +20,17 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let equipo of equipos">
-                            <td>{{ equipo.Codigo }}</td>
-                            <td>{{ equipo.TipoEquipo }}</td>
-                            <td>{{ equipo.NumeroSerie }}</td>
-                            <td>{{ equipo.Placa }}</td>
-                            <td>{{ equipo.MarcaEquipo }}</td>
+                            <td>{{ equipo.codigo }}</td>
+                            <td>{{ equipo.tipoEquipo }}</td>
+                            <td>{{ equipo.numeroSerie }}</td>
+                            <td>{{ equipo.placa }}</td>
+                            <td>{{ equipo.marcaEquipo }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
-                                    [routerLink]="['/form-update-equipo/', equipo.Id]" *ngIf="_admin"></i>
+                                    [routerLink]="['/form-update-equipo/', equipo.id]" *ngIf="_admin"></i>
                             </td>
                             <td *ngIf="_admin">
-                                <i (click)="eliminarEquipo(equipo.Id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
+                                <i (click)="eliminarEquipo(equipo.id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
                             </td>
                         </tr>
                     </tbody>

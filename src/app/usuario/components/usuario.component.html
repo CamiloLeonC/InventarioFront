@@ -30,7 +30,7 @@
                                     [routerLink]="['/form-update-usuario/', usuario.id]" *ngIf="_admin"></i>
                             </td>
                             <td *ngIf="_admin">
-                                <i (click)="eliminarUsuario(usuario.Id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
+                                <i (click)="eliminarUsuario(usuario.id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
                             </td>
                         </tr>
                     </tbody>

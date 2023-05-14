@@ -9,87 +9,42 @@
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </h3>
-                    <span *ngIf="submitted && createSeguimiento.invalid" class="badge bg-danger">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
-                    <form class="mt-4" [formGroup]= "createSeguimiento" (ngSubmit)="guardarSeguimiento()">
-                        
-                        <!-- <label for="nombreCompleto" class="form-label" aling="rigth">Nombre Completo:</label> -->
-                        <input type="text" class="form-control form-control-lg mb-4" formControlName="nombreCompleto" placeholder="Nombre Completo">
-                        <span
-                        *ngIf="createSeguimiento.controls.nombreCompleto.invalid && createSeguimiento.controls.nombreCompleto.touched">
-                        Nombre Invalido</span>
-                        <select formControlName="rol" class="form-control form-control-lg mt-4" >
-                            <option disabled selected>Selecciona un rol</option>
-                            <option *ngFor="let _rol of _roles" [value]="_rol.id">
-                                {{_rol.name}}</option>
-                        </select>
+                    <span *ngIf="submitted && createSeguimiento.invalid" class="badge bg-danger">TODOS LOS CAMPOS SON
+                        OBLIGATORIOS</span>
+                    <form class="mt-4" [formGroup]="createSeguimiento" (ngSubmit)="guardarSeguimiento()">
 
-                        <div class="row">
-                            <div class="col">
-                                <input type="text" class="form-control form-control-lg mt-4" formControlName="documento" placeholder="Documento">
-                                <span
-                                *ngIf="createSeguimiento.controls.documento.invalid && createSeguimiento.controls.documento.touched">
-                                Documento Invalido</span>
-                            </div>
-                        </div>
-                        <input type="email" class="form-control form-control-lg mt-4" formControlName="email" placeholder="Email">
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="codigo"
+                            placeholder="Código">
                         <span
-                        *ngIf="createSeguimiento.controls.email.invalid && createSeguimiento.controls.email.touched">
-                        Email Invalido</span>
+                            *ngIf="createSeguimiento.controls.codigo.invalid && createSeguimiento.controls.codigo.touched">
+                            Código Invalido</span>
 
-                        <!-- <select formControlName="idGrupo" class="form-control form-control-lg mt-4" >
-                            <option disabled selected>Selecciona un grupo</option>
-                            <option *ngFor="let _grupo of _grupos" [value]="_grupo.id">
-                                {{_grupo.curso}} {{_grupo.grado}}</option>
+                        <select formControlName="idEntregaDevolucion" class="form-control form-control-lg mt-4">
+                            <option disabled selected>Seleccione un EntregaDevolucion</option>
+                            <option *ngFor="let _entregaDevolucion of _entregaDevoluciones"
+                                [value]="_entregaDevoluciones.idEntregaDevolucion">
+                                {{_entregaDevolucion.IdEntregaDevolucion}}</option>
                         </select>
                         <span
-                        *ngIf="createSeguimiento.controls.idGrupo.invalid && createSeguimiento.controls.idGrupo.touched">
-                        Grupo Invalido</span> -->
+                            *ngIf="createSeguimiento.controls.idEntregaDevolucion.invalid && createSeguimiento.controls.idEntregaDevolucion.touched">
+                            Equipo Invalido</span>
 
-                        <!-- <input type="number" class="form-control form-control-lg mt-4" formControlName="idGrupo" placeholder="Grupo">
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="estado"
+                            placeholder="Código">
                         <span
-                        *ngIf="createSeguimiento.controls.idGrupo.invalid && createSeguimiento.controls.idGrupo.touched">
-                        Grupo Invalido</span> -->
-                        <!-- <div class="row">
-                            <div class="col">
-                                    <select class="form-select mt-4" formControlName="jornada" >
-                                        <option disabled selected>Jornada</option>
-                                        <option value='Unica'>Unica</option>
-                                    </select>
-                                    <span
-                                    *ngIf="createSeguimiento.controls.jornada.invalid && createSeguimiento.controls.jornada.touched">
-                                    Jornada Invalida</span>
-                            </div>
-                            <div class="col">
-                                <select class="form-select mt-4" formControlName="tipoSangre">
-                                    <option disabled selected>Tipo de sangre</option>
-                                    <option value="O_POSITIVO">O +</option>
-                                    <option value="O_NEGATIVO">O -</option>
-                                    <option value="A_POSITIVO">A +</option>
-                                    <option value="A_NEGATIVA">A -</option>
-                                    <option value="B_POSITIVO">B +</option>
-                                    <option value="B_NEGATIVO">B -</option>
-                                    <option value="AB_POSITIVO">AB +</option>
-                                    <option value="AB_NEGATIVO">AB -</option>
-                                </select>
-                                <span
-                                *ngIf="createSeguimiento.controls.tipoSangre.invalid && createSeguimiento.controls.tipoSangre.touched">
-                                Tipo de Sangre Invalido</span>
-                            </div>                         
-                        </div>  -->
-                        
-                        <!-- <input type="text" class="form-control form-control-lg mt-4" formControlName="nombreAcudiente" placeholder="Nombre acudiente">
+                            *ngIf="createSeguimiento.controls.estado.invalid && createSeguimiento.controls.estado.touched">
+                            Estado Invalido</span>
+
+                        <!-- <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaEstado" placeholder="Fecha de Inicio">
                         <span
-                        *ngIf="createSeguimiento.controls.nombreAcudiente.invalid && createSeguimiento.controls.nombreAcudiente.touched">
-                        Nombre Acudiente Invalido</span> -->
-                        <input type="text" class="form-control form-control-lg mt-4" formControlName="celular" placeholder="Numero de contacto acudiente">
-                        <span
-                        *ngIf="createSeguimiento.controls.numeroAcudiente.invalid && createSeguimiento.controls.numeroAcudiente.touched">
-                        Numero Acudiente Invalido</span>
-                       
+                        *ngIf="createSeguimiento.controls.fechaEstado.invalid && createSeguimiento.controls.fechaEstado.touched">
+                        Fecha de Inicio Invalido</span> -->
+
                         <div class="mt-3">
-                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/seguimiento">Volver</button>
+                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;"
+                                routerLink="/seguimiento">Volver</button>
                             <button class="btn btn-dark btn-lg" [disabled]="!createSeguimiento.valid">Agregar</button>
-                        </div>  
+                        </div>
                     </form>
                 </div>
             </div>

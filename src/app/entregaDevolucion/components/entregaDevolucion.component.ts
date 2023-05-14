@@ -23,20 +23,13 @@ export class EntregaDevolucionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getEntregaDevolucions();
     this.obtenerEntregaDevolucions();
   }
 
   obtenerEntregaDevolucions() {
-    this._entregadevolucionService.getListEntregaDevolucions().subscribe(data => {
+    this._entregadevolucionService.getListEntregaDevoluciones().subscribe(data => {
       console.log(data);
       this.entregadevolucions = data;
-      this.entregadevolucions.forEach(registro => {
-        this._entregadevolucionService.getUserRoles(registro.Id)
-          .subscribe(roles => {
-            registro.Rol = roles.descripcion;
-          });
-      })
     }, error => {
       console.log(error)
     })

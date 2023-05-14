@@ -49,5 +49,4 @@ export class EquipoComponent implements OnInit {
       console.log(error);
     })
   }
-
 }

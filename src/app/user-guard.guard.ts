@@ -13,27 +13,33 @@ export class UserGuardGuard implements CanActivate {
     'contrato',
     'equipo',
     'seguimiento',
-    'entregadevolucion',
+    'entregaDevolucion',
 
     'form-usuario',
     'form-contrato',
     'form-equipo',
     'form-seguimiento',
-    'form-entregadevolucion',
+    'form-entregaDevolucion',
 
     'form-update-usuario',
     'form-update-contrato',
     'form-update-equipo',
     'form-update-seguimiento',
-    'form-update-entregadevolucion'
+    'form-update-entregaDevolucion'
   ];
   private _permisosDocente: string[] = [
-    "equipo", 
+    'form-contrato',
+    'equipo',
+    'seguimiento', 
+
+    'form-update-contrato',
+    'form-update-equipo',
+    'form-update-seguimiento',
     
   ];
 
   private _permisosAlumno: string[] = [     
-    "seguimiento", 
+    'seguimiento', 
   ];
 
 
