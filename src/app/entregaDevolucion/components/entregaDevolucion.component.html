@@ -27,7 +27,7 @@
                             <td>{{ entregadevolucion.FechaFin }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
-                                    [routerLink]="['/form-update-entregadevolucion/', entregadevolucion.Id]" *ngIf="_admin"></i>
+                                    [routerLink]="['/form-update-entregaDevolucion/', entregadevolucion.Id]" *ngIf="_admin"></i>
                             </td>
                             <td *ngIf="_admin">
                                 <i (click)="eliminarEntregaDevolucion(entregadevolucion.Id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
