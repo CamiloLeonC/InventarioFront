@@ -1,0 +1,54 @@
+<app-navbar></app-navbar>
+<div class="container pt-4" style="opacity: 0.9;">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ tituloContrato }}
+                        <div *ngIf="loading" class="spinner-border float-end " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h3>
+                    <span *ngIf="submitted && createContrato.invalid" class="badge bg-danger">TODOS LOS CAMPOS SON OBLIGATORIOS</span>
+                    <form class="mt-4" [formGroup]= "createContrato" (ngSubmit)="guardarContrato()">
+                        
+                        <!-- <label for="nombreCompleto" class="form-label" aling="rigth">Nombre Completo:</label> -->
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="codigo" placeholder="Código">
+                        <span
+                        *ngIf="createContrato.controls.codigo.invalid && createContrato.controls.codigo.touched">
+                        Nombre Invalido</span>
+
+                        <select formControlName="idEquipo" class="form-control form-control-lg mt-4" >
+                            <option disabled selected>Seleccione un equipo</option>
+                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.Id">
+                                {{_equipo.NombreCompleto}}</option>
+                        </select>
+                        <span
+                        *ngIf="createContrato.controls.idEquipo.invalid && createContrato.controls.idEquipo.touched">
+                        Equipo Invalido</span>
+
+                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Código">
+                        <span
+                        *ngIf="createContrato.controls.fechaInicio.invalid && createContrato.controls.fechaInicio.touched">
+                        Nombre Invalido</span>
+                        
+                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Código">
+                        <span
+                        *ngIf="createContrato.controls.fechaFin.invalid && createContrato.controls.fechaFin.touched">
+                        Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="terminosContrato" placeholder="Código">
+                        <span
+                        *ngIf="createContrato.controls.terminosContrato.invalid && createContrato.controls.terminosContrato.touched">
+                        Nombre Invalido</span>
+
+                        <div class="mt-3">
+                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;" routerLink="/contrato">Volver</button>
+                            <button class="btn btn-dark btn-lg" [disabled]="!createContrato.valid">Agregar</button>
+                        </div>  
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

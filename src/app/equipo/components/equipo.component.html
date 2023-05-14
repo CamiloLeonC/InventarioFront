@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container mt-4" style="opacity: 0.9">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Equipos</span>
+
+            <!-- <h5 style="margin-top:  30px;" *ngIf="equipos.length == 0">No hay registros para mostrar</h5> -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mt-4" id="datatable">
+                    <thead>
+                        <tr>                            
+                            <th scope="col">Código</th>
+                            <th scope="col">Tipo de equipo</th>
+                            <th scope="col">Numero de serie</th>
+                            <th scope="col">Placa</th>
+                            <th scope="col">MarcaEquipo</th>
+                            <th scope="col" *ngIf="_admin"></th>
+                            <th scope="col" *ngIf="_admin"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let equipo of equipos">
+                            <td>{{ equipo.Codigo }}</td>
+                            <td>{{ equipo.TipoEquipo }}</td>
+                            <td>{{ equipo.NumeroSerie }}</td>
+                            <td>{{ equipo.Placa }}</td>
+                            <td>{{ equipo.MarcaEquipo }}</td>
+                            <td *ngIf="_admin">
+                                <i class="fas fa-pen fa-lg text-info mr-2"
+                                    [routerLink]="['/form-update-equipo/', equipo.Id]" *ngIf="_admin"></i>
+                            </td>
+                            <td *ngIf="_admin">
+                                <i (click)="eliminarEquipo(equipo.Id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px" routerLink="../form-equipo" *ngIf="_admin">
+                Agregar
+            </button>
+        </div>
+    </div>
+</div>

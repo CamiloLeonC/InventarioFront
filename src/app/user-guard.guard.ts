@@ -9,49 +9,31 @@ import jwt_decode from 'jwt-decode';
 })
 export class UserGuardGuard implements CanActivate {
   private _permisosAdmin: string[] = [
-    "alumno", 
-    "usuario", 
-    "profesor", 
-    "materia", 
-    "materia-profesor", 
-    "grupo", 
-    "nota", 
-    "notaAlumno", 
-    "form-alumno", 
-    "form-update-alumno", 
-    "form-usuario", 
-    "form-update-usuario", 
-    "form-grupo", 
-    "form-update-grupo",
-    "form-profesor", 
-    "form-update-profesor", 
-    "form-nota", 
-    "form-update-notas",
-    "form-materia", 
-    "form-update-materia", 
-    "form-materia-profesor", 
-    "form-update-materia-profesor", 
+    'usuario',
+    'contrato',
+    'equipo',
+    'seguimiento',
+    'entregadevolucion',
+
+    'form-usuario',
+    'form-contrato',
+    'form-equipo',
+    'form-seguimiento',
+    'form-entregadevolucion',
+
+    'form-update-usuario',
+    'form-update-contrato',
+    'form-update-equipo',
+    'form-update-seguimiento',
+    'form-update-entregadevolucion'
   ];
   private _permisosDocente: string[] = [
-    "alumno", 
-    "materia", 
-    "materia-profesor", 
-    "grupo", 
-    "nota", 
-    "notaAlumno", 
-    "form-alumno", 
-    "form-update-alumno", 
-    "form-grupo", 
-    "form-profesor", 
-    "form-nota", 
-    "form-update-notas",
-    "form-materia", 
-    "form-materia-profesor", 
+    "equipo", 
     
   ];
 
   private _permisosAlumno: string[] = [     
-    "nota", 
+    "seguimiento", 
   ];
 
 
@@ -82,14 +64,14 @@ export class UserGuardGuard implements CanActivate {
               }
             });
             break;
-          case 'Docente':
+          case 'AuxBodega':
             this._permisosDocente.forEach(element => {
               if (ruta[1] === element) {
                 respuesta = true;
               }
             });
             break;
-          case 'Alumno':
+          case 'Empleado':
             this._permisosAlumno.forEach(element => {
               if (ruta[1] === element) {
                 respuesta = true;

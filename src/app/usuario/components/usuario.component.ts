@@ -23,7 +23,6 @@ export class UsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getUsuarios();
     this.obtenerUsuarios();
   }
 
@@ -32,7 +31,7 @@ export class UsuarioComponent implements OnInit {
       console.log(data);
       this.usuarios = data;
       this.usuarios.forEach(registro => {
-        this._usuarioService.getUserRoles(registro.Id)
+        this._usuarioService.getUserRoles(registro.id)
           .subscribe(roles => {
             registro.Rol = roles.descripcion;
           });

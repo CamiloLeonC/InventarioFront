@@ -13,7 +13,7 @@ import { UsuarioService } from 'src/app/usuario/services/usuario.service';
   // styleUrls: ['./form-materia-profesor.component.scss'],
 })
 export class FormMateriaProfesorComponent implements OnInit {
-  
+
   listMateriaProfesors: any[] = [];
   createMateriaProfesor: FormGroup;
   submitted = false;
@@ -33,27 +33,27 @@ export class FormMateriaProfesorComponent implements OnInit {
     private _materiaService: MateriaService,
     private _usuarioService: UsuarioService,
     private aRoute: ActivatedRoute) {
-      this.createMateriaProfesor = this.fb.group({
-        
-        idProfesor: ['', Validators.required],
-        idMateria: ['', Validators.required],
+    this.createMateriaProfesor = this.fb.group({
+
+      idProfesor: ['', Validators.required],
+      idMateria: ['', Validators.required],
     });
-    this.nombre =this.aRoute.snapshot.paramMap.get('id');
-    if(this.nombre){
-      this.id=parseInt(this.nombre);
+    this.nombre = this.aRoute.snapshot.paramMap.get('id');
+    if (this.nombre) {
+      this.id = parseInt(this.nombre);
       _materiaprofesorService.getById(this.id).subscribe(data => {
-        if(!data.error){
+        if (!data.error) {
           this.editarMateriaProfesor(data);
         }
       })
     }
   }
-  
+
   ngOnInit(): void {
     // this._profesorService.getListProfesors().subscribe(data => {
     //   this._profesores = data;
     // });
-    this._usuarioService.getListProfesor().subscribe(data => {
+    this._usuarioService.getListEmpleado().subscribe(data => {
       this._profesores = data;
     });
 
@@ -69,16 +69,16 @@ export class FormMateriaProfesorComponent implements OnInit {
       IdMateria: parseInt(this.createMateriaProfesor.get('idMateria')?.value)
     }
 
-    if(this.id == undefined) {
+    if (this.id == undefined) {
       // Agregamos una nueva materiaprofesor
-        this._materiaprofesorService.saveMateriaProfesor(materiaprofesor).subscribe(data => {
-          this.toastr.success('La materiaprofesor fue registrada con exito!', 'MateriaProfesor Registrada');
-          this.createMateriaProfesor.reset();
-        }, error => {
-          this.toastr.warning(error.error,'Error')
-          console.log(error);
-        })
-    }else {
+      this._materiaprofesorService.saveMateriaProfesor(materiaprofesor).subscribe(data => {
+        this.toastr.success('La materiaprofesor fue registrada con exito!', 'MateriaProfesor Registrada');
+        this.createMateriaProfesor.reset();
+      }, error => {
+        this.toastr.warning(error.error, 'Error')
+        console.log(error);
+      })
+    } else {
 
       materiaprofesor.id = this.id;
       // Editamos materiaprofesor
@@ -88,19 +88,15 @@ export class FormMateriaProfesorComponent implements OnInit {
         this.id = undefined;
         this.toastr.info('La materiaprofesor fue actualizada con exito!', 'MateriaProfesor Actualizada');
       }, error => {
-        this.toastr.warning(error.error,'Error')
-
+        this.toastr.warning(error.error, 'Error')
         console.log(error);
       })
-
     }
-
-   
   }
 
   eliminarMateriaProfesor(id: number) {
     this._materiaprofesorService.deleteMateriaProfesor(id).subscribe(data => {
-      this.toastr.error('La materiaprofesor fue eliminada con exito!','MateriaProfesor eliminada');
+      this.toastr.error('La materiaprofesor fue eliminada con exito!', 'MateriaProfesor eliminada');
     }, error => {
       console.log(error);
     })

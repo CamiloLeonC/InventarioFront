@@ -6,7 +6,7 @@ export const environment = {
   production: false,
 
   // AppUrl: "https://proyectocolegioubala.azurewebsites.net",
-  AppUrl: "https://localhost:5001",
+  AppUrl: "https://localhost:44372",
   firebase:{
     apiKey: "AIzaSyC41u_3TYwpTYYqRcYlUDOgxbchBnBBn_Y",
     authDomain: "sistema-ubala.firebaseapp.com",

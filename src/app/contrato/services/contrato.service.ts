@@ -4,28 +4,28 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+ 
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
+export class ContratoService {
   private AppUrl = environment.AppUrl;
-  private ApiUrl = '/api/ApplicationUser'
-  private ApiRolesUrl = '/api/ApplicationRole'
+  private ApiUrl = '/api/Contratos'
   // constructor(private firestore: AngularFirestore) {}
   constructor(private http: HttpClient) { }
 
-  getListUsuarios(): Observable<any> {
+  getListContratos(): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}`;
     const params: any={};
+    params["expand"]="Equipo";
     return this.http.get<any>(Urls, {params}).pipe(
       tap(row => this.log('fetched ModuleDTO')),
       catchError((error) => this.handleError('getModuleDTOList', error))
     );
   }
 
-  
-  getListEmpleado(): Observable<any> {
+  getListEquipo(): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}`;
     const params: any={};
 
@@ -38,60 +38,30 @@ export class UsuarioService {
     );
   }
 
-  getListAuxiliarBodega(): Observable<any> {
-    const Urls = `${this.AppUrl}${this.ApiUrl}`;
-    const params: any={};
-
-    params["$filter"]="Roles/any(x: x/Role/Name eq 'AuxBodega')";
-    params["$select"]="Id,NombreCompleto";
-
-    return this.http.get<any>(Urls, {params}).pipe(
-      tap(row => this.log('fetched ModuleDTO')),
-      catchError((error) => this.handleError('getModuleDTOList', error))
-    );
-  }
-
-  getListRoles(): Observable<any> {
-    const Urls = `${this.AppUrl}${this.ApiRolesUrl}`;
-    return this.http.get<any>(Urls).pipe(
-      tap(row => this.log('fetched ModuleDTO')),
-      catchError((error) => this.handleError('getModuleDTOList', error))
-    );
-  }
-
-  getById(id: string): Observable<any> {
+  getById(id: number): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}/${id}`;
     return this.http.get<any>(Urls).pipe(
-      tap(row => this.log('fetched ModuleDTO')),
-      catchError((error) => this.handleError('getModuleDTOList', error))
+      tap(row => this.log('fetched Contrato')),
+      catchError((error) => this.handleError('getContrato', error))
     );
   }
 
-  getUserRoles(id: string): Observable<any> {
-    const Urls = `${this.AppUrl}/api/RolForUser/${id}`;
-
-    return this.http.get<any>(Urls).pipe(
-        tap(row => this.log('fetched RoleForUser')),
-        catchError((error) => this.handleError('getRoleForUserList', error))
-    );
-}
-
-  deleteUsuario(id: number): Observable<any> {
+  deleteContrato(id: number): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
 
     return this.http.delete(sUrl).pipe(
-      tap(_ => this.log(`filter SimUsuario id=${id}`)),
-      catchError((error) => this.handleError("deleteUsuario", error))
+      tap(_ => this.log(`filter SimContrato id=${id}`)),
+      catchError((error) => this.handleError("deleteContrato", error))
     );
   }
 
-  saveUsuario(usuario: any): Observable<any> {
-    return this.http.post(this.AppUrl + this.ApiUrl, usuario);
+  saveContrato(contrato: any): Observable<any> {
+    return this.http.post(this.AppUrl + this.ApiUrl, contrato);
   }
 
-  updateUsuario(id: string, usuario: any): Observable<any> {
+  updateContrato(id: number, contrato: any): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
-    return this.http.put(sUrl, usuario);
+    return this.http.put(sUrl, contrato);
   }
   private handleError(operation = "operation", result?: any) {
 

@@ -1,0 +1,82 @@
+<app-navbar></app-navbar>
+<div class="container pt-4" style="opacity: 0.9;">
+    <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h3>{{ tituloEquipo }}
+                        <div *ngIf="loading" class="spinner-border float-end " role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </h3>
+                    <span *ngIf="submitted && createEquipo.invalid" class="badge bg-danger">TODOS LOS CAMPOS SON
+                        OBLIGATORIOS</span>
+                    <form class="mt-4" [formGroup]="createEquipo" (ngSubmit)="guardarEquipo()">
+
+                        <!-- <label for="nombreCompleto" class="form-label" aling="rigth">Nombre Completo:</label> -->
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="codigo"
+                            placeholder="Código">
+                        <span
+                            *ngIf="createEquipo.controls.codigo.invalid && createEquipo.controls.codigo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="tipoEquipo"
+                            placeholder="Tipo de Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.tipoEquipo.invalid && createEquipo.controls.tipoEquipo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="numeroSerie"
+                            placeholder="Numero de Serie">
+                        <span
+                            *ngIf="createEquipo.controls.numeroSerie.invalid && createEquipo.controls.numeroSerie.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="placa"
+                            placeholder="Placa">
+                        <span
+                            *ngIf="createEquipo.controls.placa.invalid && createEquipo.controls.placa.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="marcaEquipo"
+                            placeholder="Marca del Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.marcaEquipo.invalid && createEquipo.controls.marcaEquipo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="modeloEquipo"
+                            placeholder="Modelo del Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.modeloEquipo.invalid && createEquipo.controls.modeloEquipo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="ramEquipo"
+                            placeholder="RAM del Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.ramEquipo.invalid && createEquipo.controls.ramEquipo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="dDEquipo"
+                            placeholder="Disco Duro del Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.dDEquipo.invalid && createEquipo.controls.dDEquipo.touched">
+                            Nombre Invalido</span>
+
+                        <input type="text" class="form-control form-control-lg mb-4" formControlName="sOEquipo"
+                            placeholder="Sistema Operativo del Equipo">
+                        <span
+                            *ngIf="createEquipo.controls.sOEquipo.invalid && createEquipo.controls.sOEquipo.touched">
+                            Nombre Invalido</span>
+                        
+
+                        <div class="mt-3">
+                            <button type="text" class="btn btn-secondary btn-lg" style="margin-right: 10px;"
+                                routerLink="/equipo">Volver</button>
+                            <button class="btn btn-dark btn-lg" [disabled]="!createEquipo.valid">Agregar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

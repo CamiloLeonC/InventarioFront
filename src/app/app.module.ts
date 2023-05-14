@@ -16,30 +16,29 @@ import { CommonModule } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { AppComponent } from './app.component';
 
-import { UsuarioComponent } from './usuario/components/usuario.component';
-import { AlumnoComponent } from './alumno/components/alumno.component';
-import { GrupoComponent } from './curso/components/grupo.component';
 import { LoginComponent } from './login/components/login.component';
-import { InicioComponent } from './eee/components/inicio.component';
-import { MateriaProfesorComponent } from './materia-profesor/components/materia-profesor.component';
-import { MateriaComponent } from './materia/components/materia.component';
-import { NavbarComponent } from './navbar/components/navbar.component';
-import { NotaComponent } from './nota/components/nota.component';
-import { ProfesorComponent } from './profesor/components/profesor.component';
+import { UsuarioComponent } from './usuario/components/usuario.component';
+
+
 //Componentes de formularios
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormAlumnoComponent } from './form-alumno/components/form-alumno.component';
-import { FormUsuarioComponent } from './usuario/components/form-usuario.component';
-import { FormProfesorComponent } from './form-profesor/components/form-profesor.component';
-import { FormNotaComponent,  } from './form-notas/components/form-notas.component';
-import { FormMateriaComponent } from './form-materia/components/form-materia.component';
-import { FormMateriaProfesorComponent } from './form-materia-profesor/components/form-materia-profesor.component';
-import { FormGrupoComponent } from './form-curso/components/form-grupo.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SharedModule } from '../app/shared/shared.module';
 import { BlockUIModule } from 'ng-block-ui';
 import { ErrorInterceptor, httpInterceptorProviders } from './_helpers';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { NavbarComponent } from './navbar/components/navbar.component';
+import { EquipoComponent } from './equipo/components/equipo.component';
+import { ContratoComponent } from './contrato/components/contrato.component';
+import { SeguimientoComponent } from './seguimiento/components/seguimiento.component';
+import { EntregaDevolucionComponent } from './entregaDevolucion/components/entregaDevolucion.component';
+import { FormEquipoComponent } from './equipo/components/form-equipo.component';
+import { FormSeguimientoComponent } from './seguimiento/components/form-seguimiento.component';
+import { FormContratoComponent } from './contrato/components/form-contrato.component';
+import { FormEntregaDevolucionComponent } from './entregaDevolucion/components/form-entregaDevolucion.component';
+import { FormUsuarioComponent } from './usuario/components/form-usuario.component';
+
+
 
 
 
@@ -49,23 +48,16 @@ import { AuthInterceptorService } from './auth-interceptor.service';
     AppComponent,
     NavbarComponent,
     LoginComponent,
-    InicioComponent,
-    AlumnoComponent,
     UsuarioComponent,
-    ProfesorComponent,
-    GrupoComponent,
-    NotaComponent,
-    MateriaComponent,
-    MateriaProfesorComponent,
-    NotaComponent,
-    GrupoComponent,
-    FormGrupoComponent,
-    FormAlumnoComponent,
+    EquipoComponent,
+    ContratoComponent,
+    SeguimientoComponent,
+    EntregaDevolucionComponent,
+    FormEquipoComponent,
+    FormSeguimientoComponent,
+    FormContratoComponent,
+    FormEntregaDevolucionComponent,    
     FormUsuarioComponent,
-    FormProfesorComponent,
-    FormMateriaComponent,
-    FormMateriaProfesorComponent,
-    FormNotaComponent,
   ],
   imports: [
     BrowserModule,

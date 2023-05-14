@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+<div class="container mt-4" style="opacity: 0.9">
+    <div class="card">
+        <div class="card-body">
+            <span class="h3">Seguimientos</span>
+
+            <!-- <h5 style="margin-top:  30px;" *ngIf="seguimientos.length == 0">No hay registros para mostrar</h5> -->
+            <div class="table-responsive">
+                <table class="table table-striped table-hover mt-4" id="datatable">
+                    <thead>
+                        <tr>                            
+                            <th scope="col">Código</th>
+                            <th scope="col">Nombre Completo</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Documento</th>
+                            <th scope="col">Numero Acudiente</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col" *ngIf="_admin"></th>
+                            <th scope="col" *ngIf="_admin"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let seguimiento of seguimientos">
+                            <td>{{ seguimiento.Codigo }}</td>
+                            <td>{{ seguimiento.NombreCompleto }}</td>
+                            <td>{{ seguimiento.Email }}</td>
+                            <td>{{ seguimiento.Documento }}</td>
+                            <td>{{ seguimiento.Celular }}</td>
+                            <td>{{ seguimiento.Rol }}</td>
+                            <td *ngIf="_admin">
+                                <i class="fas fa-pen fa-lg text-info mr-2"
+                                    [routerLink]="['/form-update-seguimiento/', seguimiento.Id]" *ngIf="_admin"></i>
+                            </td>
+                            <td *ngIf="_admin">
+                                <i (click)="eliminarSeguimiento(seguimiento.Id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-dark btn-lg" style="float: right; margin-top: 20px" routerLink="../form-seguimiento" *ngIf="_admin">
+                Agregar
+            </button>
+        </div>
+    </div>
+</div>

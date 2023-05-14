@@ -81,10 +81,7 @@ export class FormMateriaComponent implements OnInit {
         this.toastr.warning(error.error,'Error')
         console.log(error);
       })
-
-    }
-
-   
+    }   
   }
 
   eliminarMateria(id: number) {

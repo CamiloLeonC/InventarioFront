@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
-import { Observable } from 'rxjs/internal/Observable';
-import { JwtDecodeTokenService } from 'src/app/modulos/jwtdecodetoken.service';
 import jwt_decode from 'jwt-decode';
-import { of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 
 @Component({
@@ -45,7 +42,7 @@ export class NavbarComponent implements OnInit {
   getDocente(): boolean {
     let currentUser: any = JSON.parse(localStorage.getItem('currentUser')!);
     let data: any = jwt_decode(currentUser.token);
-    if(data.rol === 'Docente'){
+    if(data.rol === 'AuxBodega'){
       return true;
     } else {
       return false;
@@ -55,7 +52,7 @@ export class NavbarComponent implements OnInit {
   getAlumnon(): boolean {
     let currentUser: any = JSON.parse(localStorage.getItem('currentUser')!);
     let data: any = jwt_decode(currentUser.token);
-    if(data.rol === 'Alumno'){
+    if(data.rol === 'Empleado'){
       return true;
     } else {
       return false;

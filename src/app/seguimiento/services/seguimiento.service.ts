@@ -4,20 +4,22 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+ 
 
 @Injectable({
   providedIn: 'root',
 })
-export class UsuarioService {
+export class SeguimientoService {
   private AppUrl = environment.AppUrl;
   private ApiUrl = '/api/ApplicationUser'
   private ApiRolesUrl = '/api/ApplicationRole'
   // constructor(private firestore: AngularFirestore) {}
   constructor(private http: HttpClient) { }
 
-  getListUsuarios(): Observable<any> {
+  getListSeguimientos(): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}`;
     const params: any={};
+    params["expand"]="Grupo";
     return this.http.get<any>(Urls, {params}).pipe(
       tap(row => this.log('fetched ModuleDTO')),
       catchError((error) => this.handleError('getModuleDTOList', error))
@@ -42,7 +44,7 @@ export class UsuarioService {
     const Urls = `${this.AppUrl}${this.ApiUrl}`;
     const params: any={};
 
-    params["$filter"]="Roles/any(x: x/Role/Name eq 'AuxBodega')";
+    params["$filter"]="Roles/any(x: x/Role/Name eq 'AuxiliarBodega')";
     params["$select"]="Id,NombreCompleto";
 
     return this.http.get<any>(Urls, {params}).pipe(
@@ -76,22 +78,22 @@ export class UsuarioService {
     );
 }
 
-  deleteUsuario(id: number): Observable<any> {
+  deleteSeguimiento(id: number): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
 
     return this.http.delete(sUrl).pipe(
-      tap(_ => this.log(`filter SimUsuario id=${id}`)),
-      catchError((error) => this.handleError("deleteUsuario", error))
+      tap(_ => this.log(`filter SimSeguimiento id=${id}`)),
+      catchError((error) => this.handleError("deleteSeguimiento", error))
     );
   }
 
-  saveUsuario(usuario: any): Observable<any> {
-    return this.http.post(this.AppUrl + this.ApiUrl, usuario);
+  saveSeguimiento(seguimiento: any): Observable<any> {
+    return this.http.post(this.AppUrl + this.ApiUrl, seguimiento);
   }
 
-  updateUsuario(id: string, usuario: any): Observable<any> {
+  updateSeguimiento(id: string, seguimiento: any): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
-    return this.http.put(sUrl, usuario);
+    return this.http.put(sUrl, seguimiento);
   }
   private handleError(operation = "operation", result?: any) {
 

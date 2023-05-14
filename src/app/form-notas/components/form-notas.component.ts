@@ -60,7 +60,7 @@ export class FormNotaComponent implements OnInit {
     this._materiaPService.getListMateriaProfesors().subscribe(data => {
       this._materiasprofesores = data;
     });
-    this._alumnoService.getListAlumno().subscribe(data => {
+    this._alumnoService.getListEmpleado().subscribe(data => {
       this._alumnos = data;
     });
 
