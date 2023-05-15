@@ -9,7 +9,7 @@ import { EntregaDevolucionService } from '../services/entregaDevolucion.service'
   // styleUrls: ['./entregadevolucion.component.css'],
 })
 export class EntregaDevolucionComponent implements OnInit {
-  entregadevolucions: any[] = [];
+  entregaDevoluciones: any[] = [];
   _admin: boolean = false;
 
 
@@ -29,7 +29,7 @@ export class EntregaDevolucionComponent implements OnInit {
   obtenerEntregaDevolucions() {
     this._entregadevolucionService.getListEntregaDevoluciones().subscribe(data => {
       console.log(data);
-      this.entregadevolucions = data;
+      this.entregaDevoluciones = data;
     }, error => {
       console.log(error)
     })

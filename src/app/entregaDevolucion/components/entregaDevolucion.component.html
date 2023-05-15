@@ -4,7 +4,7 @@
         <div class="card-body">
             <span class="h3">Entrega o Devolucions</span>
 
-            <!-- <h5 style="margin-top:  30px;" *ngIf="entregadevolucions.length == 0">No hay registros para mostrar</h5> -->
+            <!-- <h5 style="margin-top:  30px;" *ngIf="entregaDevoluciones.length == 0">No hay registros para mostrar</h5> -->
             <div class="table-responsive">
                 <table class="table table-striped table-hover mt-4" id="datatable">
                     <thead>
@@ -19,12 +19,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let entregadevolucion of entregadevolucions">
+                        <tr *ngFor="let entregadevolucion of entregaDevoluciones">
                             <td>{{ entregadevolucion.Codigo }}</td>
                             <td>{{ entregadevolucion.Usuario.NombreCompleto }}</td>
                             <td>{{ entregadevolucion.Equipo.MarcaEquipo}} - {{ entregadevolucion.Equipo.TipoEquipo}}</td>
-                            <td>{{ entregadevolucion.FechaIncio }}</td>
-                            <td>{{ entregadevolucion.FechaFin }}</td>
+                            <td>{{ entregadevolucion.FechaIncio | date:'dd/MM/yyyy' }}</td>
+                            <td>{{ entregadevolucion.FechaFin | date:'dd/MM/yyyy' }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
                                     [routerLink]="['/form-update-entregaDevolucion/', entregadevolucion.Id]" *ngIf="_admin"></i>

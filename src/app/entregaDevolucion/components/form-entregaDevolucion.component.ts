@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { EntregaDevolucionService } from 'src/app/entregaDevolucion/services/entregaDevolucion.service';
 import { EquipoService } from 'src/app/equipo/services/equipo.service';
 import { UsuarioService } from 'src/app/usuario/services/usuario.service';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-form-entregadevolucion',
@@ -19,8 +21,7 @@ export class FormEntregaDevolucionComponent implements OnInit {
   createEntregaDevolucion: FormGroup;
   submitted = false;
   loading = false;
-  nombre: string | null;
-  id: string = "";
+  id: number | null;
   _equipos: any = [];
   _usuarios: any = [];
   tituloEntregaDevolucion = 'Agregar Entrega o Devolucion';
@@ -34,15 +35,15 @@ export class FormEntregaDevolucionComponent implements OnInit {
     private aRoute: ActivatedRoute,
   ) {
     this.createEntregaDevolucion = this.fb.group({
-      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      codigo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
       idUsuario: ['', [Validators.required]],
       idEquipos: ['', [Validators.required]],
       fechaIncio: ['', [Validators.required]],
       fechaFin: ['', [Validators.required]],
     });
-    this.nombre = this.aRoute.snapshot.paramMap.get('id');
-    if (this.nombre) {
-      this.id = this.nombre;
+    const idRuta = this.aRoute.snapshot.paramMap.get('id');
+    if (idRuta) {
+      this.id = parseInt(idRuta);
       _entregadevolucionService.getById(this.id).subscribe(data => {
         if (!data.error) {
           this.editarEntregaDevolucion(data);
@@ -52,7 +53,13 @@ export class FormEntregaDevolucionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.createEntregaDevolucion = this.fb.group({
+      codigo: ['', [Validators.required, Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      idUsuario: ['', [Validators.required]],
+      idEquipos: ['', [Validators.required]],
+      fechaIncio: ['', [Validators.required]],
+      fechaFin: ['', [Validators.required]],
+    });
     this._equipoService.getListEquipos().subscribe(data => {
       this._equipos = data;
     });
@@ -64,9 +71,6 @@ export class FormEntregaDevolucionComponent implements OnInit {
   }
 
   guardarEntregaDevolucion() {
-
-    let idRoles: string[] = [];
-    idRoles.push(this.createEntregaDevolucion.value.rol);
     const entregadevolucion: any = {
       codigo: this.createEntregaDevolucion.get('codigo')?.value,
       idUsuario: this.createEntregaDevolucion.get('idUsuario')?.value,
@@ -76,10 +80,10 @@ export class FormEntregaDevolucionComponent implements OnInit {
     }
 
 
-    if (this.id == "") {
+    if (!this.id) {
       // Agregamos un nuevo entregadevolucion
       this._entregadevolucionService.saveEntregaDevolucion(entregadevolucion).subscribe(data => {
-        this.toastr.success('El entregadevolucion fue registrado con exito!', 'EntregaDevolucion Registrado');
+        this.toastr.success('La entrega o devolucion fue registrado con exito!', 'EntregaDevolucion Registrado');
         this.createEntregaDevolucion.reset();
       }, error => {
         this.toastr.warning(error.error, 'Error')
@@ -92,8 +96,8 @@ export class FormEntregaDevolucionComponent implements OnInit {
       this._entregadevolucionService.updateEntregaDevolucion(this.id, entregadevolucion).subscribe(data => {
         this.createEntregaDevolucion.reset();
         this.tituloEntregaDevolucion = 'Agregar';
-        this.id = "";
-        this.toastr.info('El entregadevolucion fue actualizado con exito!', 'EntregaDevolucion Actualizado');
+        this.id = undefined;
+        this.toastr.info('La entrega o devolucion fue actualizada con exito!', 'EntregaDevolucion Actualizado');
       }, error => {
         this.toastr.warning(error.error, 'Error')
         console.log(error);
@@ -110,10 +114,10 @@ export class FormEntregaDevolucionComponent implements OnInit {
 
     this.createEntregaDevolucion.patchValue({
       codigo: entregadevolucion.codigo,
-      idUsuario: entregadevolucion.idUsuario,
       idEquipos: entregadevolucion.idEquipos,
-      fechaIncio: entregadevolucion.fechaIncio,
-      fechaFin: entregadevolucion.fechaFin
+      idUsuario: entregadevolucion.idUsuario,
+      fechaIncio: moment(entregadevolucion.fechaIncio).format('YYYY-MM-DD'),
+      fechaFin:  moment(entregadevolucion.fechaFin).format('YYYY-MM-DD')
     })
   }
 

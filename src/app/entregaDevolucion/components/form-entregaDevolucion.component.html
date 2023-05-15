@@ -19,25 +19,25 @@
                             *ngIf="createEntregaDevolucion.controls.codigo.invalid && createEntregaDevolucion.controls.codigo.touched">
                             Código Invalido</span>
 
-                        <select formControlName="idEquipo" class="form-control form-control-lg mt-4" >
+                        <select formControlName="idEquipos" class="form-control form-control-lg mt-4" >
                             <option disabled selected>Seleccione un equipo</option>
-                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.idEquipo">{{_equipo.MarcaEquipo}} - {{ _equipo.TipoEquipo}}</option>
+                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.id">{{ _equipo.marcaEquipo}} - {{ _equipo.tipoEquipo }}</option>
                         </select>
                         <span
-                        *ngIf="createEntregaDevolucion.controls.idEquipo.invalid && createEntregaDevolucion.controls.idEquipo.touched">
+                        *ngIf="createEntregaDevolucion.controls.idEquipos.invalid && createEntregaDevolucion.controls.idEquipos.touched">
                         Equipo Invalido</span>
 
                         <select formControlName="idUsuario" class="form-control form-control-lg mt-4" >
                             <option disabled selected>Seleccione un usuario</option>
-                            <option *ngFor="let _usuario of _usuarios" [value]="_usuario.idUsuario">{{_usuario.NombreCompleto}}</option>
+                            <option *ngFor="let _usuario of _usuarios" [value]="_usuario.id">{{ _usuario.nombreCompleto }}</option>
                         </select>
                         <span
                         *ngIf="createEntregaDevolucion.controls.idUsuario.invalid && createEntregaDevolucion.controls.idUsuario.touched">
                         Equipo Invalido</span>
 
-                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Fecha de Inicio">
+                        <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaIncio" placeholder="Fecha de Inicio">
                         <span
-                        *ngIf="createEntregaDevolucion.controls.fechaInicio.invalid && createEntregaDevolucion.controls.fechaInicio.touched">
+                        *ngIf="createEntregaDevolucion.controls.fechaIncio.invalid && createEntregaDevolucion.controls.fechaIncio.touched">
                         Fecha de Inicio Invalido</span>
                         
                         <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Fecha fin">

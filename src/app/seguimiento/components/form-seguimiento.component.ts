@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { EntregaDevolucionService } from 'src/app/entregaDevolucion/services/entregaDevolucion.service';
 import { SeguimientoService } from 'src/app/seguimiento/services/seguimiento.service';
 import { UsuarioService } from 'src/app/usuario/services/usuario.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form-seguimiento',
@@ -32,10 +33,10 @@ export class FormSeguimientoComponent implements OnInit {
     private aRoute: ActivatedRoute,
   ) {
     this.createSeguimiento = this.fb.group({
-      idEntregaDevolucion: ['', [Validators.required]],
-      codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
-      estado: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåè éêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
-      fechaEstado: ['', [Validators.required]],
+      IdEntregaDevolucion: ['', [Validators.required]],
+      Codigo: ['', [Validators.maxLength(200), Validators.pattern('^[A-Za-z0-9_]+$')]],
+      Estado: ['', [Validators.maxLength(200), Validators.pattern('^([A-Za-z0-9_ÀÁÂÃÄÅÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜàáâãäåè éêëìíîïðñòóôõöùúûüĀāĂăĄąēĔĕĖėĘęĚěĨĩīĪĬĭĮį \\-\\&\\´\\`\\^\\¨\\~\\¸\\˛\\,\\˝\\``\\˘\\•\\˚\'\\.]+)$')]],
+      FechaEstado: ['', [Validators.required]],
     });
     this.nombre = this.aRoute.snapshot.paramMap.get('id');
     if (this.nombre) {
@@ -54,18 +55,14 @@ export class FormSeguimientoComponent implements OnInit {
       this._entregaDevoluciones = data;
     });
 
-    this._usuarioService.getListUsuarios().subscribe(data => {
-      this._usuarios = data;
-    });
-
   }
 
   guardarSeguimiento() {
     const seguimiento: any = {
-      idEntregaDevolucion: this.createSeguimiento.get('idEntregaDevolucion')?.value,
-      codigo: this.createSeguimiento.get('codigo')?.value,
-      estado: this.createSeguimiento.get('estado')?.value,
-      fechaEstado: this.createSeguimiento.get('fechaEstado')?.value,
+      IdEntregaDevolucion: this.createSeguimiento.get('IdEntregaDevolucion')?.value,
+      Codigo: this.createSeguimiento.get('Codigo')?.value,
+      Estado: this.createSeguimiento.get('Estado')?.value,
+      FechaEstado: this.createSeguimiento.get('FechaEstado')?.value,
     }
 
     if (this.id == undefined) {
@@ -79,7 +76,7 @@ export class FormSeguimientoComponent implements OnInit {
       })
     } else {
 
-      seguimiento.id = this.id;
+      seguimiento.Id = this.id;
       // Editamos seguimiento
       this._seguimientoService.updateSeguimiento(this.id, seguimiento).subscribe(data => {
         this.createSeguimiento.reset();
@@ -101,10 +98,10 @@ export class FormSeguimientoComponent implements OnInit {
     this.id = seguimiento.id;
 
     this.createSeguimiento.patchValue({
-      idEntregaDevolucion: seguimiento.idEntregaDevolucion,
-      codigo: seguimiento.codigo,
-      estado: seguimiento.estado,
-      fechaEstado: seguimiento.fechaEstado
+      IdEntregaDevolucion: seguimiento.idEntregaDevolucion,
+      Codigo: seguimiento.codigo,
+      Estado: seguimiento.estado,
+      FechaEstado: moment(seguimiento.fechaEstado).format('YYYY-MM-DD'),
     })
   }
 

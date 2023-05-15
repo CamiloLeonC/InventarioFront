@@ -20,9 +20,9 @@
                     <tbody>
                         <tr *ngFor="let seguimiento of seguimientos">
                             <td>{{ seguimiento.Codigo }}</td>
-                            <td>{{ seguimiento.EntregaDevolucion.IdUsuario }} - {{ seguimiento.EntregaDevolucion.IdEquipos }}</td>
+                            <td>{{ seguimiento.EntregaDevolucion.Usuario.NombreCompleto }} - {{ seguimiento.EntregaDevolucion.Equipo.TipoEquipo }} - {{ seguimiento.EntregaDevolucion.Equipo.MarcaEquipo }}</td>
                             <td>{{ seguimiento.Estado }}</td>
-                            <td>{{ seguimiento.FechaEstado }}</td>
+                            <td>{{ seguimiento.FechaEstado | date:'dd/MM/yyyy'}}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
                                     [routerLink]="['/form-update-seguimiento/', seguimiento.Id]" *ngIf="_admin"></i>

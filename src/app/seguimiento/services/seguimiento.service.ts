@@ -18,7 +18,7 @@ export class SeguimientoService {
   getListSeguimientos(): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}`;
     const params: any={};
-    params["expand"]="EntregaDevolucion";
+    params["expand"]="EntregaDevolucion($expand=Usuario,Equipo)";
     return this.http.get<any>(Urls, {params}).pipe(
       tap(row => this.log('fetched ModuleDTO')),
       catchError((error) => this.handleError('getModuleDTOList', error))

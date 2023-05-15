@@ -16,21 +16,21 @@
                             <th scope="col">Fecha Fin</th>
                             <th scope="col">Terminos Contrato</th>
                             <th scope="col" *ngIf="_admin"></th>
-                            <th scope="col" *ngIf="_admin"></th>
+                            <th scope="col" *ngIf="false"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let contrato of contratos">
                             <td>{{ contrato.Codigo }}</td>
                             <td>{{contrato.Equipo.MarcaEquipo}} - {{ contrato.Equipo.TipoEquipo}}</td>
-                            <td>{{ contrato.FechaIncio }}</td>
-                            <td>{{ contrato.FechaFin }}</td>
+                            <td>{{ contrato.FechaIncio | date:'dd/MM/yyyy' }}</td>
+                            <td>{{ contrato.FechaFin | date:'dd/MM/yyyy' }}</td>
                             <td>{{ contrato.TerminosContrato }}</td>
                             <td *ngIf="_admin">
                                 <i class="fas fa-pen fa-lg text-info mr-2"
                                     [routerLink]="['/form-update-contrato/', contrato.Id]" *ngIf="_admin"></i>
                             </td>
-                            <td *ngIf="_admin">
+                            <td *ngIf="false">
                                 <i (click)="eliminarContrato(contrato.id)" class="fas fa-trash-alt fa-lg text-danger" *ngIf="_admin"></i>
                             </td>
                         </tr>

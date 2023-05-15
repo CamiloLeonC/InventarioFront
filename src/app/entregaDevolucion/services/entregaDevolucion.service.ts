@@ -25,7 +25,7 @@ export class EntregaDevolucionService {
     );
   }
 
-  getById(id: string): Observable<any> {
+  getById(id: number): Observable<any> {
     const Urls = `${this.AppUrl}${this.ApiUrl}/${id}`;
     return this.http.get<any>(Urls).pipe(
       tap(row => this.log('fetched ModuleDTO')),
@@ -46,7 +46,7 @@ export class EntregaDevolucionService {
     return this.http.post(this.AppUrl + this.ApiUrl, entregadevolucion);
   }
 
-  updateEntregaDevolucion(id: string, entregadevolucion: any): Observable<any> {
+  updateEntregaDevolucion(id: number, entregadevolucion: any): Observable<any> {
     const sUrl = `${this.AppUrl}${this.ApiUrl}/${id}`;
     return this.http.put(sUrl, entregadevolucion);
   }

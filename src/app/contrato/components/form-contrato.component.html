@@ -20,21 +20,21 @@
 
                         <select formControlName="idEquipo" class="form-control form-control-lg mt-4" >
                             <option disabled selected>Seleccione un equipo</option>
-                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.idEquipo">>{{_equipo.MarcaEquipo}} - {{ _equipo.TipoEquipo}}</option>
+                            <option *ngFor="let _equipo of _equipos" [value]="_equipo.id">{{ _equipo.marcaEquipo}} - {{ _equipo.tipoEquipo }}</option>
                         </select>
                         <span
                         *ngIf="createContrato.controls.idEquipo.invalid && createContrato.controls.idEquipo.touched">
                         Equipo Invalido</span>
 
-                        <!-- <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaInicio" placeholder="Fecha de Inicio">
+                         <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaIncio" placeholder="Fecha de Inicio">
                         <span
-                        *ngIf="createContrato.controls.fechaInicio.invalid && createContrato.controls.fechaInicio.touched">
+                        *ngIf="createContrato.controls.fechaIncio.invalid && createContrato.controls.fechaIncio.touched">
                         Fecha de Inicio Invalido</span>
                         
                         <input type="date" class="form-control form-control-lg mb-4" formControlName="fechaFin" placeholder="Fecha fin">
                         <span
                         *ngIf="createContrato.controls.fechaFin.invalid && createContrato.controls.fechaFin.touched">
-                        Fecha fin Invalido</span> -->
+                        Fecha fin Invalido</span>
 
                         <input type="text" class="form-control form-control-lg mb-4" formControlName="terminosContrato" placeholder="Terminos del Contrato">
                         <span
